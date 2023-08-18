@@ -45,5 +45,5 @@ jobs:
         uses: szenius/set-timezone@v1.2
         with:
           timezoneLinux: "Europe/London"
-      - name: run app tests live
-        run: NODE_ENV production DATABASE_URL=${{secrets.DATABASE_URL}} npm run test
+      - name: run app tests live db
+        run: NODE_ENV=production DATABASE_URL=${{secrets.DATABASE_URL}} npm run test
