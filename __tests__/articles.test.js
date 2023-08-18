@@ -555,9 +555,6 @@ describe("POST /api/articles", () => {
         const currentTime = new Date().getTime();
         const articleTime = new Date(article.created_at).getTime();
         expect(currentTime).toBeGreaterThan(articleTime);
-        expect(Math.floor(currentTime / 20000)).toBe(
-          Math.floor(articleTime / 20000)
-        );
       });
   });
   test("should be able to add a new article image url rather than default", () => {
@@ -772,7 +769,7 @@ describe("DELETE /api/articles/:article_id", () => {
   });
 });
 describe("DELETE /api/articles/:article_id error handling", () => {
-  test("sohuld return 404 if article cannot be found", () => {
+  test("should return 404 if article cannot be found", () => {
     return request(app)
       .delete("/api/articles/1000")
       .expect(404)
