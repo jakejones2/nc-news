@@ -61,6 +61,7 @@ describe("GET /api/articles/:article_id", () => {
       });
   });
 });
+
 describe("GET /api/articles/:article_id error handling", () => {
   test("Out of range id produces 404 and message", () => {
     return request(app)
@@ -229,14 +230,30 @@ describe("GET /api/articles query order", () => {
         expect(articles).toBeSortedBy("created_at", { descending: true });
       });
   });
+});
+
+describe("GET /api/articles query author", () => {
+  test("should be able to add query author=rogersop", () => {
+    return request(app)
+      .get("/api/articles?author=rogersop")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        articles.forEach((article) => {
+          expect(article.author).toBe("rogersop");
+        });
+      });
+  });
   test("all queries should work together", () => {
     return request(app)
-      .get("/api/articles?topic=cats&sort_by=article_id&order=asc")
+      .get(
+        "/api/articles?author=rogersop&topic=cats&sort_by=article_id&order=asc"
+      )
       .expect(200)
       .then(({ body: { articles } }) => {
         expect(articles).toBeSortedBy("article_id");
         articles.forEach((article) => {
           expect(article.topic).toBe("cats");
+          expect(article.author).toBe("rogersop");
         });
       });
   });
@@ -265,6 +282,20 @@ describe("GET /api/articles query error handling", () => {
       .expect(400)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("Bad Request");
+      });
+  });
+  test("if topic does not exist return 404", () => {
+    return request(app).get("/api/articles?topic=dogs").expect(404);
+  });
+  test("if author does not exist return 404", () => {
+    return request(app).get("/api/articles?author=dogs").expect(404);
+  });
+  test("if author and topic exist but no results, return empty array", () => {
+    return request(app)
+      .get("/api/articles?topic=cats&author=butter_bridge")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles.length).toBe(0);
       });
   });
 });
@@ -322,6 +353,14 @@ describe("GET /api/articles with pagination", () => {
         expect(totalCount).toBe(13);
       });
   });
+  test("if page out of bounds, return 200 with empty array", () => {
+    return request(app)
+      .get("/api/articles?limit=5&p=5")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toEqual([]);
+      });
+  });
   test("should work with other queries", () => {
     return request(app)
       .get("/api/articles?limit=2&p=2&topic=mitch&sort_by=article_id&order=asc")
@@ -344,14 +383,6 @@ describe("GET /api/articles with pagination", () => {
 });
 
 describe("GET /api/articles pagination error handling", () => {
-  test("if page out of bounds, return 404", () => {
-    return request(app)
-      .get("/api/articles?limit=5&p=5")
-      .expect(404)
-      .then(({ body: { msg } }) => {
-        expect(msg).toBe("Articles not found");
-      });
-  });
   test("if limit = 0, return 400", () => {
     return request(app)
       .get("/api/articles?limit=0")
