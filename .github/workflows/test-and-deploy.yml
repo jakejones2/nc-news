@@ -27,5 +27,8 @@ jobs:
           postgresql db: test_db
           postgresql user: test_user
           postgresql password: test_password
+      - name: set timezone
+        uses: szenius/set-timezone@v1.2
+        with: timezoneLinux: 'Europe/London'
       - name: run app tests
         run: PGDATABASE=test_db PGUSER=test_user PGPASSWORD=test_password npm run test
