@@ -14,9 +14,9 @@ jobs:
       - name: run util tests
         run: npm run test-utils
   test-app:
-  needs: test-utils
+    needs: test-utils
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: checkout and clone repo
         uses: actions/checkout@v3
       - name: install dependencies
@@ -29,7 +29,3 @@ jobs:
           postgresql password: test_password
       - name: run app tests
         run: PGDATABASE=test_db PGUSER=test_user PGPASSWORD=test_password npm run test
-
-
-
-      
