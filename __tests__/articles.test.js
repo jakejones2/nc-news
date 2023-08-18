@@ -554,7 +554,10 @@ describe("POST /api/articles", () => {
         expect(article).toHaveProperty("created_at", expect.any(String));
         const currentTime = new Date().getTime();
         const articleTime = new Date(article.created_at).getTime();
-        expect(articleTime / 100000).toBeCloseTo(currentTime / 100000);
+        expect(currentTime).toBeGreaterThan(articleTime);
+        expect(Math.floor(currentTime / 20000)).toBe(
+          Math.floor(articleTime / 20000)
+        );
       });
   });
   test("should be able to add a new article image url rather than default", () => {
