@@ -20,8 +20,9 @@ GET /api
 - `/api/users`
 - `/api/topics`
 - `/api/articles`
-  - `?sort_by=<column name>`
   - `?topic=<topic slug>`
+  - `?author=<username>`
+  - `?sort_by=<column name>`
   - `?order=<asc/desc>`
   - `?limit=<num of articles per page>`
   - `?p=<page number>`
