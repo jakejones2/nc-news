@@ -2,12 +2,12 @@
 
 ## Welcome!
 
-This api lets you store and retrieve json data for a news website.<br> It is built using node/express.js and PostgreSQL, and deployed on Render with ElephantSQL.<br>
+This API lets you store and retrieve json data for a news website.<br> It is built using node/express.js and PostgreSQL, and deployed on Render with ElephantSQL.<br>
 Try it out at https://nc-news-tm72.onrender.com/api !
 
 ## Summary
 
-For a full breakdown of what this api offers, visit the link above at:
+For a full breakdown of what this API offers, visit the link above at:
 
 ```
 GET /api
