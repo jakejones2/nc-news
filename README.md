@@ -46,12 +46,12 @@ Example POST body to add a new article:
 
 Author and topic must already exist in the database.
 
-#### PATCH `/api/articles/:article_id` to increase an article's `votes` property:
+#### PATCH `/api/articles/:article_id` to increase or decrease an article's `votes` property:
 
-Example PATCH body to increase votes by 3:
+Example PATCH body to decrease votes by 3:
 
 ```
-{ inc_votes: 3 }
+{ inc_votes: -3 }
 ```
 
 #### DELETE `/api/articles/:article_id` to delete an article (responds with 204).
@@ -68,6 +68,10 @@ Example POST body to add a new comment:
 ```
 
 #### DELETE `/api/comments/:comment_id` to delete comments
+
+### PATCH `/api/comments/:comment_id` to alter a comment's `votes` property
+
+Same mechanism as for **articles** (see above).
 
 #### POST `/api/topics` to add topics:
 
@@ -123,10 +127,12 @@ This process **defines the names of your databases**. You will need to use these
 
 ### 5 - Seed local databases
 
-After creating two .env files for development and testing, run the following commands to seed local databases:
+After creating two .env files for development and testing, use the following commands to create and seed local databases:
 
-1. `npm run setup-dbs`
-2. `npm run seed`
+- `npm run setup-dbs`
+- `npm run seed`
+
+The command `run setup-dbs` is included for convenience, and creates development and test databases called `nc_news` and `nc_news_test` respectively. You can skip this step if you have created your own databases. Remember that development and test database names are set in their corresponding `.env` files, so to use this command you must assign `PGDATABASE` to `nc-news` or `nc-news-test` accordingly.
 
 ### 6 - Run all tests
 

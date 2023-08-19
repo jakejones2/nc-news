@@ -110,7 +110,10 @@ module.exports = {
     "DELETE /api/articles:article_id": {
       description: "deletes article at given id, returns 204 no content",
       queries: [],
+      successfulRequestBody: null,
       successfulResponseBody: null,
+      requestHeaderIncludes: null,
+      responseHeaderIncludes: null,
     },
   },
   "/api/articles/:article_id/comments": {
