@@ -141,3 +141,15 @@ To run all tests, enter `npm test` into the command line. Tests are held in the 
 ### 7 - Start a local server
 
 To start a local server, enter `node listen.js` into the command line from the top-level directory. You should see a message saying 'Listening on port 9090'. This port can be changed by altering the `port` variable in `listen.js`.
+
+## Updates
+
+### 19/08/23 Issue with is-url-http module installation
+
+Seems this module doesn't install correctly with npm at the moment. The install freezes for a few minutes with the following:
+
+```
+reify:re2: timing reifyNode:node_modules/lodash
+```
+
+If you wait for a few minutes everything will proceed as expected. So, for the moment, either wait for it to work, or remove the dependency and build your own url validation system. It might be that an earlier version of node also fixes the bug.
